@@ -295,6 +295,14 @@ function bazo_preprocess_views_view(array &$variables) {
 }
 
 /**
+ * Implements hook_preprocess_hook() for breadcrumb.
+ */
+function bazo_preprocess_breadcrumb(array &$variables) {
+  // Attach default libraries.
+  _bazo_attach_libraries($variables, 'breadcrumb');
+}
+
+/**
  * Auto attaches libraries for active and base themes using naming convention.
  *
  * @param array &$variables
