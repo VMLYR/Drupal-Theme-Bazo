@@ -20,6 +20,8 @@ function bazo_theme_registry_alter(&$theme_registry) {
     'node',
     'page',
     'paragraph',
+    'region',
+    'taxonomy_term',
     'view',
   ];
 
@@ -165,7 +167,6 @@ function bazo_preprocess_node(array &$variables) {
 
   // Basic attribute variables.
   $variables['attributes']['class'][] = 'node';
-  $variables['attributes']['class'][] = 'node';
   $variables['attributes']['class'][] = "node--type-{$bundle_css}";
   $variables['attributes']['class'][] = "node--view-mode-{$view_mode_css}";
   if ($node->isPromoted()) {
@@ -281,6 +282,41 @@ function bazo_preprocess_region(&$variables) {
       break;
   }
 
+}
+
+/**
+ * Implements hook_preprocess_hook() for taxonomy_term.
+ */
+function bazo_preprocess_taxonomy_term(array &$variables) {
+  /** @var \Drupal\taxonomy\TermInterface $term */
+  $term = $variables['term'];
+  $bundle = $term->bundle();
+  $view_mode = $variables['view_mode'];
+
+  $bundle_css = Html::cleanCssIdentifier($bundle);
+  $view_mode_css = Html::cleanCssIdentifier($view_mode);
+
+  // Attach default and bundle-specific libraries.
+  _bazo_attach_libraries($variables, 'node', $view_mode_css, $bundle_css);
+
+  // Initialize attributes.
+  $variables['footer_attributes'] = [];
+
+  // Basic attribute variables.
+  $variables['attributes']['class'][] = 'term';
+  $variables['attributes']['class'][] = "term--vocabulary-{$bundle_css}";
+  $variables['attributes']['class'][] = "term--view-mode-{$view_mode_css}";
+  $variables['attributes']['data-entity-id'] = $term->id();
+  $variables['attributes']['data-entity-type'] = $term->getEntityTypeId();
+  $variables['content_attributes']['class'][] = 'term__content';
+  $variables['footer_attributes']['class'][] = 'term__footer';
+  $variables['title_attributes']['class'][] = 'term__title';
+  if ($variables['page']) {
+    $variables['title_attributes']['class'][] = 'visually-hidden';
+  }
+
+  // Set universal reusable variables.
+  $variables['footer'] = [];
 }
 
 /**
