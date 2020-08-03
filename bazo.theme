@@ -360,7 +360,7 @@ function _bazo_attach_libraries(&$variables, $prefix, $view_mode = 'full', $bund
   $active_theme = \Drupal::theme()->getActiveTheme();
 
   // Get themed to attach libraries for (filter out ones we don't care about).
-  $theme_names = array_filter(array_keys($active_theme->getBaseThemeExtensions()), function ($theme_name) {
+  $theme_names = array_filter(array_keys($active_theme->getBaseThemes()), function ($theme_name) {
     return !in_array($theme_name, ['bazo', 'classy', 'stable']);
   });
 
