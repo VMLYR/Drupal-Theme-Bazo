@@ -2,7 +2,7 @@ name: Bazo
 type: theme
 description: 'A base theme that adds helpful functionality to child-themes.'
 package: VMLY&R
-core_version_requirement: ^8.8 || ^9
+core_version_requirement: ^8.8 || ^9 || ^10
 base theme: classy
 hidden: true
 regions:

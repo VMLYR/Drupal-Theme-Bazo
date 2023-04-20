@@ -8,7 +8,6 @@
 use Drupal\Component\Utility\Html;
 use Drupal\Core\Template\Attribute;
 
-
 /**
  * Implements hook_theme_registry_alter().
  */
@@ -51,7 +50,7 @@ function bazo_postprocess(array &$variables) {
     'figcaption_attributes',
     'footer_attributes',
     'image_attributes',
-    'inner_attributes'
+    'inner_attributes',
   ];
   $variables['#attribute_variables'] = array_merge($variables['#attribute_variables'], $default_attribute_variables);
 
@@ -350,7 +349,7 @@ function bazo_preprocess_breadcrumb(array &$variables) {
  * @param null|string $bundle
  *   The entity type bundle or more specific instance ID.
  */
-function _bazo_attach_libraries(&$variables, $prefix, $view_mode = 'full', $bundle = NULL) {
+function _bazo_attach_libraries(array &$variables, $prefix, $view_mode = 'full', $bundle = NULL) {
   // Clean variables.
   $prefix = Html::cleanCssIdentifier($prefix);
   $view_mode = Html::cleanCssIdentifier($view_mode);
